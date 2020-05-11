@@ -1,0 +1,111 @@
+﻿@model LoginModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Oturum</title>
+
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/Assets/plugins/fontawesome-free/css/all.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/Assets/dist/css/adminlte.min.css">
+    <!-- Google Font: Source Sans Pro -->
+
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    
+
+</head>
+
+<body class="hold-transition lockscreen">
+    <!-- Automatic element centering -->
+
+    <div class="lockscreen-wrapper">
+        <div class="lockscreen-logo">
+            <a href="#"><b>Kütüphaneye </b>Hoşgeldin !</a>
+        </div>
+        <!-- User name -->
+
+        <div class="lockscreen-name">Oturum Aç</div>
+
+        <!-- START LOCK SCREEN ITEM -->
+        <div class="lockscreen-item">
+            <!-- lockscreen image -->
+            <div class="lockscreen-image">
+                <img src="~/Assets/dist/img/bookshelf-160x120.jpg" alt="User Image">
+            </div>
+            <!-- /.lockscreen-image -->
+            <!-- lockscreen credentials (contains the form) -->
+            @using (Html.BeginForm("Index", "Login", FormMethod.Post))
+            {
+
+                <div class="lockscreen-credentials" id="myForm">
+                    <div class="input-group">
+
+                        @Html.TextBoxFor(m => m.KADI, new { @class = "form-control", @placeholder = "Kullanıcı Adı", @requried = "required", @autocomplete = "off" })
+
+                    </div>
+                    <div class="input-group">
+
+                        @Html.PasswordFor(m => m.PASS, new { @class = "form-control", @type = "password", @placeholder = "Parola", @requried = "required" })
+
+                        <div class="input-group-append">
+                            <button id="submit " type="submit" class="btn"><i class="fas fa-arrow-right text-muted"></i></button>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <!-- /.lockscreen credentials -->
+        </div>
+    </div>
+
+    <!-- /.center -->
+    <!-- jQuery -->
+    <script src="~/Assets/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="~/Assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+    @if (ViewBag.d == "Hata")
+    {
+
+        <script type="text/javascript">
+
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 2000,
+
+            })
+            Toast.fire({
+                icon: 'error',
+                title: 'Hatalı Giriş Yeniden Deneyin!'
+            })
+
+        </script>
+
+    }
+
+    <script>
+        function enterPress(e) {
+            if (e.which == 13) {
+                $('#girisYapButton').click();//give your submit an ID
+            }
+        }
+
+        $('#myForm').keypress(enterPress);
+    </script>
+</body>
+
+</html>
+
